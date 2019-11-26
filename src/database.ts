@@ -5,16 +5,16 @@ import {ReimbursementStatus} from "./models/reimbursement"
 import {ReimbursementType} from "./models/reimbursement"
 
 
-//database to hold user and role
+//Holds role id and names
 export let roles = [
     new Role (1, "trainee"),
     new Role (2, "employee"),
     new Role (3, "quality Control"),
     new Role (4, "admin")
 ]
-
-export let users = [
-    new User(101,"Default","pass","John","Smith", "redacted@redacted.gov", []), 
+//Holds user information
+export let users: User[] = [
+    new User(101,"Default","pass","John","Smith", "redacted@redacted.gov",[]), 
     new User(102,"Official","password","Joe","Gomez", "Joeg@hotmail.com", []), 
     new User(103,"Testmaster","Enterqc","Steve","Min", "qc@company.com", []), 
     new User(104,"Boss","Letmein","Sir","Bossman", "bosstime@company.com",[]) 
