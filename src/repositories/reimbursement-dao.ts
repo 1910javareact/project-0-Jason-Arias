@@ -4,7 +4,7 @@ import { connectionPool } from ".";
 import { multiReimbursementDTOtoReimbursement, reimbursementDTOtoReimbursement } from "../util/reimbursementdto-to-reimbursement";
 
 
-
+// get the reimbursements with a given status Id
 export async function daoReimbursementByStatusId(statusId:number){
     let client: PoolClient
 
@@ -38,6 +38,7 @@ export async function daoReimbursementByStatusId(statusId:number){
     }
 }
 
+// find reimbursements by user id and return the array
 export async function daoGetReimbursementByUserId(userId:number){
     let client:PoolClient
     
@@ -71,6 +72,7 @@ export async function daoGetReimbursementByUserId(userId:number){
     }
 }
 
+// make a new reimbursement request
 export async function daoPostReimbursement(p){
     let client:PoolClient
     try{
@@ -97,6 +99,7 @@ export async function daoPostReimbursement(p){
     }
 }
 
+// get a reimbersement by it's id
 export async function daoGetReimbursementByReimbursementId(reimbursement_id:number){
     let client:PoolClient
     try{
@@ -129,6 +132,7 @@ export async function daoGetReimbursementByReimbursementId(reimbursement_id:numb
     }
 }
 
+// replace a reimbursemnt by it's id
 export async function daoUpdateReimbursement(update: Reimbursement){
     let client:PoolClient
     

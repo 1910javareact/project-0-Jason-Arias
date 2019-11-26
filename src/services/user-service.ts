@@ -1,18 +1,20 @@
 import {User} from "../models/user"
 import * as uDao from "../repositories/user-dao";
 
-export function getAllUsers() {
+// call the daoGetUsers function from user-dao, no manipulation required for this request
+export async function getAllUsers(): Promise<User[]> {
     try {
-    return uDao.daoGetAllUsers()
+    return await uDao.daoGetAllUsers();
     }
     catch(e) {
         throw e
     }
 }
 
-export function getUserById(id: number) {
+// call the daoGetUserById function from user-dao, no manipulation required for this request
+export async function getUserById(id: number): Promise <User> {
    try {
-    return uDao.daoGetUserById(id)
+    return await uDao.daoGetUserById(id)
    }
    catch(e) {
        throw e
@@ -20,15 +22,17 @@ export function getUserById(id: number) {
     
 }
 
-export function getUsernameAndPassword(username: string, password: string): Promise<User> {
+// call the username and password check from the repository layer, no manipulation required for this request
+export async function getUsernameAndPassword(username: string, password: string): Promise<User> {
     try {
-    return uDao.daoGetUsernameAndPassword(username, password)
+    return await uDao.daoGetUsernameAndPassword(username, password)
     }
     catch(e) {
         throw e
     }
 }
 
+// update user from user Id, fianlly something to do in the service layer
 export async function updateUser(req: User){
     try {
         const user = await uDao.daoGetUserById(req.userId);

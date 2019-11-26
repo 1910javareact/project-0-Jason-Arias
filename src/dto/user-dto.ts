@@ -1,3 +1,4 @@
+//Data Transfer Object - User
 export class UserDTO {
     userId: number;
     username: string;

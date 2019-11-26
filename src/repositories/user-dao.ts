@@ -3,7 +3,7 @@ import {PoolClient} from 'pg'
 import {connectionPool} from '.'
 import {userDTOtoUser, multipleUserDTOtoUser} from '../util/userDTO-to-user'
 
-
+//get all users from the database. Then return them.
 export async function daoGetAllUsers(): Promise<User[]> {
     let client : PoolClient;
     try {
@@ -17,7 +17,6 @@ export async function daoGetAllUsers(): Promise<User[]> {
         }
     }
     catch(e){
-        //console.log(e);
         if (e == 'No Users Exist') {
             throw {
                 status: 400,
@@ -32,10 +31,11 @@ export async function daoGetAllUsers(): Promise<User[]> {
     }  
     }
     finally {
-        client.release();
+        client && client.release();
     }
 }
 
+//get user from database based on the id
 export async function daoGetUserById (id: number): Promise<User> {
     let client : PoolClient;
     try {
@@ -64,10 +64,11 @@ export async function daoGetUserById (id: number): Promise<User> {
         }
     }
     finally {
-        client.release()
+        client && client.release()
     }
 }
 
+//see whether the entered username and password matches input with login. If so, return user
 export async function daoGetUsernameAndPassword(username: string, password: string): Promise<User> {
     let client : PoolClient;
     try {
@@ -101,6 +102,7 @@ export async function daoGetUsernameAndPassword(username: string, password: stri
     }
 }
 
+// update a user in the database
 export async function daoUpdateUser(user: User){
     
     let client: PoolClient
@@ -125,6 +127,6 @@ export async function daoUpdateUser(user: User){
             message: 'Internal Server Error'
         };
     } finally {
-        client.release();
+        client && client.release();
     }
 }

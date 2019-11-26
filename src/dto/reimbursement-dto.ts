@@ -1,3 +1,4 @@
+//Data Transfer Object - Reimbursement
 export class ReimbursementDTO{
     reimbursement_id: number
     author: number

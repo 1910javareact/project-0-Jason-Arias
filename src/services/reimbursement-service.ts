@@ -1,6 +1,7 @@
 import * as rDao from "../repositories/reimbursement-dao"
-//import { Reimbursement } from "../models/reimbursement";
+//import { Reimbursement } from '../models/reimbursement';
 
+// call the daoGetReimbursementsByStatusId and return the data once it's collected
 export function getReimbursementByStatusId(id:number){
     try{
         return rDao.daoReimbursementByStatusId(id)
@@ -10,6 +11,7 @@ export function getReimbursementByStatusId(id:number){
     }
 }
 
+// call the daoGetReimbursementsByUserId and return the data once it's collected
 export function getReimbursementByUserId(id:number){
     try{
         return rDao.daoGetReimbursementByUserId(id)
@@ -19,6 +21,7 @@ export function getReimbursementByUserId(id:number){
     }
 }
 
+// call the daoPostReimbersement and return the post
 export function postReimbursement(post) {
     try {
         return rDao.daoPostReimbursement(post);
@@ -28,6 +31,7 @@ export function postReimbursement(post) {
 
 }
 
+// call the daoPatchReimbersement and return the updated post
 export async function patchReimbursement(patch) {
     try {
         const post = await rDao.daoGetReimbursementByReimbursementId(patch.reimbursementId);

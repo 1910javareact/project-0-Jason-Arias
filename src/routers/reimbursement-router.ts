@@ -5,6 +5,7 @@ import {loggingMiddleware} from "../middleware/logging-middleware"
 
 export const reimbursementRouter = express.Router();
 
+// finding reimbursements by status
 reimbursementRouter.get('/status/:statusId', authorization ([1]), loggingMiddleware, async (req, res) =>{
     let statusId = +req.params.statusId
     if(isNaN(statusId)){
@@ -21,6 +22,7 @@ reimbursementRouter.get('/status/:statusId', authorization ([1]), loggingMiddlew
     }
 })
 
+// get reimbursements by userId
 reimbursementRouter.get('/author/userId/:userId', authorization ([1], true), loggingMiddleware, async (req, res)=>{
     let userId = +req.params.userId
     if(isNaN(userId)){
@@ -37,6 +39,8 @@ reimbursementRouter.get('/author/userId/:userId', authorization ([1], true), log
     }
 })
 
+// submit a riembursement, date submitted will be handled in the database
+// amount description and type are all that are required
 reimbursementRouter.post('', authorization([1,2,3]), loggingMiddleware, async (req, res) => {
     const { body } = req;
         const post = {
@@ -59,7 +63,10 @@ reimbursementRouter.post('', authorization([1,2,3]), loggingMiddleware, async (r
         }
 
     })
-
+    
+// update a reimbursement
+// only admins are allowed to update a request, and only approve or deny them
+// only a status and reimbursementId is required
 reimbursementRouter.patch('', authorization([1]), loggingMiddleware, async (req, res)=>{
     const { body } = req;
         const patch = {

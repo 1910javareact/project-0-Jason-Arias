@@ -43,13 +43,6 @@ app.use('/login', async (req, res) => {
 app.use('/users', userRouter)
 
 //Find user by id
-app.use('/users/id')
-
-//Find reimbursements by status
-//app.use('/reimbursements/status/:statusId')
-
-//Find reimbursements by user
-//app.use('/reimbursements/author/userId/:userId')
 
 //submit reimbursements
 app.use('/reimbursements', reimbursementRouter)

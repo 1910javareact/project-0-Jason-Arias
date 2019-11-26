@@ -1,4 +1,5 @@
 
+//Keeps track of user information
 export class User{
 userId: number //primary key
 username: string //not null, unique
@@ -18,6 +19,7 @@ constructor(userId:number, username:string, password: string, firstName:string, 
 }
 }
 
+//Keeps track of permissions a user hass
 export class Role {
     roleId: number //primary key
     role: string //not null, unique

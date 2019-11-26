@@ -1,5 +1,5 @@
 
-
+//Represents a single reimbursement
 export class Reimbursement {
     reimbursementId: number //primary key
     author: number //not null
@@ -23,18 +23,20 @@ export class Reimbursement {
     }
 }
 
+//Track the status of a reimbursement 
 export class ReimbursementStatus {
     statusId: number //primary key
-    status: string
+    status: string //not null
     constructor(statusId:number,status:string) {
         this.statusId = statusId
         this.status = status
     }
 }
 
+//Track the kind of reimbursement
 export class ReimbursementType {
-    typeId: number
-    type: string
+    typeId: number //primary key
+    type: string //not null, unique
     constructor(typeId:number,type:string) {
         this.typeId = typeId
         this.type = type

@@ -20,6 +20,7 @@ export let users = [
     new User(104,"Boss","Letmein","Sir","Bossman", "bosstime@company.com",[]) 
 ]
 
+//Holds reimbursements, statuses of reimbursements, and types of reimbursements
 export let reimbursementStatus = [
     new ReimbursementStatus(1, "Pending"),
     new ReimbursementStatus(2, "Approved"),
