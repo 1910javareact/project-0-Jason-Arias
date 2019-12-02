@@ -9,25 +9,28 @@ export async function daoGetAllUsers(): Promise<User[]> {
     try {
         client = await connectionPool.connect();
         const result = await client.query('SELECT * FROM project_0.user NATURAL JOIN project_0.user_role NATURAL JOIN project_0.role');
-        if(result.rowCount === 0){
-            throw 'No Users Exist'
-        }
-        else{
+        //if(result.rowCount === 0){
+            //throw 'No Users Exist'
             return multipleUserDTOtoUser(result.rows)
         }
-    }
+       // else{
+            //return multipleUserDTOtoUser(result.rows)
+       // }
+   // }
     catch(e){
-        if (e == 'No Users Exist') {
-            throw {
-                status: 400,
-                message: 'No Users Exist'
-            }
-        }
-        else {       
+        console.log(e);
+        
+        //if (e == 'No Users Exist') {
+            //throw {
+               // status: 400,
+               // message: 'No Users Exist'
+           // }
+       // }
+       // else {       
         throw {
             status: 500,
             message: 'Internal Server Error'
-        };  
+        //};  
     }  
     }
     finally {
@@ -35,18 +38,40 @@ export async function daoGetAllUsers(): Promise<User[]> {
     }
 }
 
+export async function daoSaveOneUser(u: User): Promise<User> {
+    let client: PoolClient;
+    client = await connectionPool.connect();
+    try {
+        await client.query('BEGIN');
+        const result = await client.query('INSERT INTO project0.user (username, "password", firstname, lastname, email, "role") values ($1,$2,$3,$4,$5,$6) RETURNING userid',
+        [u.username, u.password, u.firstName, u.lastName, u.email, u.role]);
+        await client.query('COMMIT');
+        return userDTOtoUser(result.rows);
+    } catch (e) {
+        await client.query('ROLLBACK');
+        throw {
+            status: 500,
+            message: 'Internal Server Error'
+        };
+    } finally {
+        client && client.release();
+    }
+}
+
 //get user from database based on the id
-export async function daoGetUserById (id: number): Promise<User> {
+export async function daoGetUserById (userId: number): Promise<User> {
     let client : PoolClient;
     try {
         client = await connectionPool.connect();
         const result = await client.query('SELECT * FROM project_0.user NATURAL JOIN project_0.user_role NATURAL JOIN project_0.role WHERE user_id = $1',
-                                     [id])
-        if (result.rowCount === 0) {
-            throw 'No user exists'
+                                     [userId])
+        if (result.rowCount > 0) {
+            return userDTOtoUser(result.rows)
+           // throw 'No user exists'
         } 
         else {
-            return userDTOtoUser(result.rows)
+            //return userDTOtoUser(result.rows)
+            throw 'No user exists'
         }
     } 
     catch(e) {
@@ -103,7 +128,7 @@ export async function daoGetUsernameAndPassword(username: string, password: stri
 }
 
 // update a user in the database
-export async function daoUpdateUser(user: User){
+export async function daoUpdateUser(newUser: User){
     
     let client: PoolClient
     client = await connectionPool.connect()
@@ -112,13 +137,13 @@ export async function daoUpdateUser(user: User){
         client = await connectionPool.connect();
         client.query('BEGIN');
         await client.query('update project_0.user set username = $1, password = $2, first_name = $3, last_name = $4, email = $5 where user_id = $6',
-            [user.username, user.password, user.firstName, user.lastName, user.email, user.userId]);
-        await client.query('delete from project_0.user_role where user_id = $1',
-            [user.userId]);
-        for ( const role of user.roles) {
-            await client.query('insert into project_0.user_role values ($1,$2)',
-            [user.userId, role.roleId]);
-        }
+            [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.email, newUser.userId]);
+        //await client.query('delete from project_0.user_role where user_id = $1',
+           // [newUser.userId]);
+        //for ( const role of newUser.roles) {
+           // await client.query('insert into project_0.user_role values ($1,$2)',
+           // [newUser.userId, role.roleId]);
+        //}
         client.query('COMMIT');
     } catch (e) {
         client.query('ROLLBACK');

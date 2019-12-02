@@ -9,7 +9,7 @@ import {ReimbursementType} from "./models/reimbursement"
 export let roles = [
     new Role (1, "trainee"),
     new Role (2, "employee"),
-    new Role (3, "quality Control"),
+    new Role (3, "financial manager"),
     new Role (4, "admin")
 ]
 //Holds user information

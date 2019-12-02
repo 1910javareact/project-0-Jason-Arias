@@ -6,6 +6,7 @@ export class UserDTO {
     firstName: string;
     lastName: string;
     email: string;
-    role_id: number;
-    role_name: string;
+    role: number;
+    //role_id: number;
+    //role_name: string;
 }

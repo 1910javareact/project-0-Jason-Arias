@@ -1,10 +1,22 @@
 import * as rDao from "../repositories/reimbursement-dao"
-//import { Reimbursement } from '../models/reimbursement';
+import { Reimbursement } from '../models/reimbursement';
+
+export function getAllReimbursements(): Promise<Reimbursement[]> {
+    return rDao.daoGetAllReimbursements();
+}
+
+export function getReimbursementByReimbursementId(reimbursementid){
+    try {
+        return rDao.daoGetReimbursementByReimbursementId(reimbursementid);
+    } catch(e) {
+        throw e;
+    }
+}
 
 // call the daoGetReimbursementsByStatusId and return the data once it's collected
-export function getReimbursementByStatusId(id:number){
+export function getReimbursementByStatusId(status:number){
     try{
-        return rDao.daoReimbursementByStatusId(id)
+        return rDao.daoReimbursementByStatusId(status)
     }
     catch(e){
         throw e
@@ -12,9 +24,9 @@ export function getReimbursementByStatusId(id:number){
 }
 
 // call the daoGetReimbursementsByUserId and return the data once it's collected
-export function getReimbursementByUserId(id:number){
+export function getReimbursementByUserId(userId:number){
     try{
-        return rDao.daoGetReimbursementByUserId(id)
+        return rDao.daoGetReimbursementByUserId(userId)
     }
     catch(e){
         throw e

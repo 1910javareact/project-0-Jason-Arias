@@ -23,7 +23,7 @@ app.use(sessionMiddleware)
 //Find users
 //Update users
 app.use('/login', async (req, res) => {
-    let {username, password} = req.body
+    const {username, password} = req.body
 
     if(!username || !password) {
         res.status(400).send(`Invalid Credentials`)
@@ -47,7 +47,7 @@ app.use('/users', userRouter)
 //submit reimbursements
 app.use('/reimbursements', reimbursementRouter)
 
-app.listen(1001, () => {
+app.listen(1003, () => {
     console.log('app has started');
     
 })

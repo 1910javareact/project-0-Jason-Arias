@@ -11,25 +11,20 @@ export async function getAllUsers(): Promise<User[]> {
     }
 }
 
+export function saveOneUser(u: User): Promise<User> {
+    return uDao.daoSaveOneUser(u);
+}
+
 // call the daoGetUserById function from user-dao, no manipulation required for this request
-export async function getUserById(id: number): Promise <User> {
-   try {
-    return await uDao.daoGetUserById(id)
-   }
-   catch(e) {
-       throw e
-   }
+export async function getUserById(userId: number): Promise <User> {
+    console.log('Service: you are searching for user ' + userId);
+    return await uDao.daoGetUserById(userId)
     
 }
 
 // call the username and password check from the repository layer, no manipulation required for this request
 export async function getUsernameAndPassword(username: string, password: string): Promise<User> {
-    try {
     return await uDao.daoGetUsernameAndPassword(username, password)
-    }
-    catch(e) {
-        throw e
-    }
 }
 
 // update user from user Id, fianlly something to do in the service layer
